@@ -1,21 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import DestinationListScreen from './screens/DestinationListScreen';
+import DestinationShowScreen from './screens/DestinationShowScreen';
+import WelcomeScreen from "./screens/WelcomeScreen";
+import DestinationListScreenBasic from './screens/DestinationListScreenBasic';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <DestinationListScreenBasic />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
