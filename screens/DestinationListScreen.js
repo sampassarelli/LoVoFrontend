@@ -67,6 +67,7 @@ function DestinationListScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     padding: 20,
+    paddingBottom: 0,
     backgroundColor: colors.light
   }
 });
