@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
@@ -13,16 +14,17 @@ function Card({
   renderRightActions,  
 }) {
   return (
-    <Swipeable renderRightActions={renderRightActions}>
-      <View style={styles.card}>
-        <Image style={styles.image} source={image} />
-        <View style={styles.detailsContainer}>
-          <AppText style={styles.title}>{title}</AppText>
-          <AppText style={styles.subTitle}>{subTitle}</AppText>
+    <Swipeable renderRightActions={renderRightActions}> 
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={styles.card}>
+          {image && <Image style={styles.image} source={image} />}
+          <View style={styles.detailsContainer}>
+            <AppText style={styles.title} numberOfLines={1}>{title}</AppText>
+            <AppText style={styles.subTitle} numberOfLines={1}>{subTitle}</AppText>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Swipeable>
-
   );
 }
 

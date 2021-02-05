@@ -9,21 +9,21 @@ import CardItemDeleteAction from "../components/CardItemDeleteAction";
 const initialDestinations = [
   {
     id: 1,
-    title: "Destination 1",
-    description: "This Destination is amazing",
+    title: "Destination 1 his is sample text to see what and how far the lines go",
+    description: "This Destination is amazing this is sample text to see what and how far the lines go",
     image: require('../assets/seed-destination-image.jpg'),
   },
   {
     id: 2,
     title: "Destination 2",
     description: "This Destination is ass",
-    image: require('../assets/seed-destination-image.jpg'),
+    // image: require('../assets/seed-destination-image.jpg'),
   },
   {
     id: 3,
     title: "Destination 3",
     description: "This Destination is ok",
-    image: require('../assets/seed-destination-image.jpg'),
+    // image: require('../assets/seed-destination-image.jpg'),
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const initialDestinations = [
   },
 ];
 
-function DestinationListScreen(props) {
+function DestinationListScreen({ navigation }) {
   const [destinations, setDestinations] = useState(initialDestinations);
   
   const handleDelete = (destination) => {
@@ -51,7 +51,7 @@ function DestinationListScreen(props) {
             title={item.title}
             subTitle={item.description}
             image={item.image}
-            onPress={() => console.log("Destination selected", item)}
+            onPress={() => navigation.navigate("DestinationShow", item)}
             renderRightActions={() => (
               <CardItemDeleteAction onPress={() => handleDelete(item)} />
             )}

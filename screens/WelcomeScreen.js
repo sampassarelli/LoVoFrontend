@@ -3,8 +3,9 @@ import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
 import AppButton from "../components/AppButton";
 
 import colors from "../config/colors";
+import routes from "../navigation/routes";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
     blurRadius={2}
@@ -12,12 +13,19 @@ function WelcomeScreen(props) {
       source={require("../assets/welcome-background.png")}
     >
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/icon.png")}/>
+        <Image style={styles.logo} source={require("../assets/signUpLogo.png")}/>
         <Text style={styles.tagline}>Where To Next?</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="Login" onPress={() => console.log("login button clicked")} />
-        <AppButton title="Register" color="secondary" onPress={() => console.log("register button clicked")}/>
+        <AppButton 
+          title="Login"
+          onPress={() => navigation.navigate(routes.LOGIN)}
+          />
+        <AppButton 
+          title="Create Account" 
+          color="secondary" 
+          onPress={() => navigation.navigate(routes.REGISTER)}
+          />
       </View>
     </ImageBackground>
   );
