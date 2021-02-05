@@ -5,11 +5,12 @@ import DestinationListScreen from './screens/DestinationListScreen';
 import DestinationShowScreen from './screens/DestinationShowScreen';
 import WelcomeScreen from "./screens/WelcomeScreen";
 import DestinationListScreenBasic from './screens/DestinationListScreenBasic';
+import AccountScreen from './screens/AccountScreen';
 
 
 export default function App() {
   return (
-    <DestinationListScreenBasic />
+    <AccountScreen/>
   );
 }
 
