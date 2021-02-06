@@ -7,9 +7,10 @@ import Screen from '../components/Screen'
 
 function MapHome(props) {
   return (
-    <Screen>
+  
       <MapView
         style={styles.map}
+        provider={MapView.PROVIDER_GOOGLE}
         initialRegion={{
           longitude: -87.629799,
           latitude: 41.878113,
@@ -24,7 +25,7 @@ function MapHome(props) {
        
           </Marker>
       </MapView>
-    </Screen>
+
     // <Screen>
     //   <View style={styles.container}><Text>Hello From the Map Home Screen</Text></View>
     // </Screen>

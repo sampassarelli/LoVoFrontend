@@ -10,7 +10,13 @@ import colors from "../config/colors"
 import AppText from "../components/AppText";
 
 const validationSchema = Yup.object().shape({
+  longitude: Yup.string().required().label("Google Search"),
+  latitude: Yup.string().required().label("Google Search"),
+  google: Yup.string().required().label("Google Search")
   // name: Yup.string().required().label("Name of Destination"),
+  // address: Yup.string().required().label("Address"),
+  // visited: Yup.string().required().label("Name of Destination"),
+
   // username: Yup.string().required().label("Username"),
   // email: Yup.string().required().email().label("Email"),
   // password: Yup.string().required().min(4).label("Password"),
@@ -28,6 +34,7 @@ function DestinationNewScreen() {
         <Text style={styles.header}>Where to Next?</Text>
         <AppForm
           initialValues={{ 
+            google: "",
             address: "", 
             name: "", 
             category: "", 
@@ -59,7 +66,7 @@ function DestinationNewScreen() {
           />
           <AppFormField
             autoCorrect
-            name="address"
+            name="category"
             placeholder="Category"
           />
           <AppFormField
@@ -122,7 +129,7 @@ function DestinationNewScreen() {
               null
             }
           </View>
-          <SubmitButton title="Add Destination" onSubmit={() => console.log("Add Destination Button Touched")} />
+          <SubmitButton title="Add Destination"  />
         </AppForm>
       </ScrollView>
     </Screen>
