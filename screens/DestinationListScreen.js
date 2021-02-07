@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import Screen from "../components/Screen";
@@ -34,8 +34,18 @@ const initialDestinations = [
 ];
 
 function DestinationListScreen({ navigation }) {
-  const [destinations, setDestinations] = useState(initialDestinations);
+  const [destinations, setDestinations] = useState([]);
   
+  useEffect(() => {
+    loadDestinations()
+  },[])
+
+  const loadDestinations = async () => {
+    await fetch('http://localhost:3000/api/v1/destinations')
+    .then(resp => resp.json())
+    .then(fetchedDestinations => setDestinations(fetchedDestinations))
+  }  
+
   const handleDelete = (destination) => {
     // Delete the destination from destinations
     setDestinations(destinations.filter((d) => d.id !== destination.id));
@@ -48,8 +58,8 @@ function DestinationListScreen({ navigation }) {
         keyExtractor={(destination) => destination.id.toString()}
         renderItem={({ item }) => (
           <Card
-            title={item.title}
-            subTitle={item.description}
+            name={item.name}
+            address={item.address}
             image={item.image}
             onPress={() => navigation.navigate("DestinationShow", item)}
             renderRightActions={() => (

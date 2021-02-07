@@ -7,9 +7,15 @@ import AppText from "./AppText";
 import colors from "../config/colors";
 
 function Card({ 
-  title, 
-  subTitle, 
+  name, 
+  address, 
   image,
+  category,
+  visited,
+  dateVisited,
+  comment,
+  cost,
+  attendees,
   onPress,
   renderRightActions,  
 }) {
@@ -19,8 +25,13 @@ function Card({
         <View style={styles.card}>
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
-            <AppText style={styles.title} numberOfLines={1}>{title}</AppText>
-            <AppText style={styles.subTitle} numberOfLines={1}>{subTitle}</AppText>
+            {name && <AppText style={styles.title} numberOfLines={1}>{name}</AppText>}
+            {address && <AppText style={styles.subTitle} numberOfLines={1}>{address}</AppText>}
+            {category && <AppText style={styles.subTitle} numberOfLines={1}>{category}</AppText>}
+            {dateVisited && <AppText style={styles.subTitle} numberOfLines={1}>{dateVisited}</AppText>}
+            {comment && <AppText style={styles.subTitle} numberOfLines={3}>{comment}</AppText>}
+            {cost && <AppText style={styles.subTitle} numberOfLines={1}>{cost}</AppText>}
+            {attendees && <AppText style={styles.subTitle} numberOfLines={1}>{attendees}</AppText>}
           </View>
         </View>
       </TouchableWithoutFeedback>
