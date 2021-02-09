@@ -40,18 +40,24 @@ function DestinationListScreen({ navigation }) {
   const [destinations, setDestinations] = useState(DestinationContext);
   
   useEffect(() => {
-    loadDestinations()
+    setDestinations(user.user.destinations)
+    // loadDestinations()
   },[])
 
-  const loadDestinations = async () => {
-    await fetch('http://localhost:3000/api/v1/destinations')
-    .then(resp => resp.json())
-    .then(fetchedDestinations => setDestinations(fetchedDestinations))
-  }  
+  // const loadDestinations = async () => {
+  //   await fetch(`http://localhost:3000/api/v1/users/${user.id}`)
+  //   .then(resp => resp.json())
+  //   .then(fetchedUser => setDestinations(fetchedUser.destinations))
+  // }  
 
   const handleDelete = (destination) => {
-    // Delete the destination from destinations
-    setDestinations(destinations.filter((d) => d.id !== destination.id));
+    fetch(`http://localhost:3000/api/v1/destinations/${destination.id}`, {
+      method: 'DELETE'
+    })
+    .then(resp => resp.json())
+    .then(deletedDestination => {
+      setDestinations(destinations.filter((d) => d.id !== destination.id));
+    })
   };
   
   return (

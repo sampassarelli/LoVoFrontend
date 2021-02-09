@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 
 import Screen from '../components/Screen'
@@ -7,8 +7,10 @@ import ListItemSeparatorComponent from '../components/ListItemSeparator'
 import colors from '../config/colors'
 import Icon from '../components/Icon';
 import routes from "../navigation/routes";
+import UserContext from '../components/contexts/UserContext';
 
 function AccountScreen({ navigation }) {
+  const [user, setUser] = useContext(UserContext)
 
   const menuItems = [
     {
@@ -34,9 +36,10 @@ function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
+        
         <ListItem
-          title="User's Name"
-          subTitle="Sample Email Address"
+          title={user.user.first_name}
+          subTitle={user.user.email}
           image={require("../assets/profile-pic.jpeg")}
           onPress={() => navigation.navigate(routes.ACCOUNT_SHOW)}
         />
@@ -64,6 +67,7 @@ function AccountScreen({ navigation }) {
       <ListItem
         title="Logout"
         IconComponent ={<Icon name="logout" backgroundColor={colors.medium}/>}
+        onPress={() => setUser(null)}
       />
     </Screen>
   );

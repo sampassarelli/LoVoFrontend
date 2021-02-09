@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 
 
@@ -8,18 +8,21 @@ import AppNavigator from './navigation/AppNavigator';
 import ContextStore from './ContextStore'
 import UserContext from './components/contexts/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import DestinationContext from './components/contexts/DestinationContext'
 
 export default function App() {
-  const token = AsyncStorage.token
-  // console.log(user);
-  const user = useContext(UserContext)
+  const [user, setUser] = useState()
+  const [destinations, setDestinations] = useState([])
+  // console.log(user)
+
   return (
-    <ContextStore>
-      <NavigationContainer theme={navigationTheme}>
-        {user ? <AppNavigator/> : <AuthNavigator />}
-      </NavigationContainer>
-    </ContextStore>
+    <UserContext.Provider value={[ user, setUser ]}>
+      <DestinationContext.Provider value={[destinations, setDestinations]}>
+        <NavigationContainer theme={navigationTheme}>
+          {user ? <AppNavigator/> : <AuthNavigator />}
+        </NavigationContainer>
+      </DestinationContext.Provider>
+    </UserContext.Provider>
   );
 }
 

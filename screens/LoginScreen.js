@@ -39,7 +39,7 @@ function LoginScreen(props) {
         } else {
           AsyncStorage.setItem('jwt_token', userData.jwt_token)
           setUser(userData)
-          console.log(user);
+          // console.log(user);
         }
       })
   }
@@ -49,7 +49,7 @@ function LoginScreen(props) {
       <Image style={styles.logo} source={require("../assets/signUpLogo.png")} />
       <ErrorMessage />
       <AppForm
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "sam@gmail.com", password: "123" }}
         onSubmit={loginData => handleSubmit(loginData)}
         validationSchema={validationSchema}
       >

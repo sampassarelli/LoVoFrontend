@@ -10,7 +10,6 @@ function MapHome(props) {
   
       <MapView
         style={styles.map}
-        provider={MapView.PROVIDER_GOOGLE}
         initialRegion={{
           longitude: -87.629799,
           latitude: 41.878113,
@@ -19,7 +18,6 @@ function MapHome(props) {
         }}
       >
         <Marker
-        coordinate
         >
          
        

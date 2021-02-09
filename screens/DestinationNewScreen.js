@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { KeyboardAvoidingView, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
@@ -8,46 +8,75 @@ import AppFormField from "../components/forms/AppFormField"
 import SubmitButton from "../components/forms/SubmitButton"
 import colors from "../config/colors"
 import AppText from "../components/AppText";
+import DestinationContext from "../components/contexts/DestinationContext";
+import ErrorMessage from "../components/forms/ErrorMessage";
+import UserContext from '../components/contexts/UserContext'
+import routes from '../navigation/routes'
 
 const validationSchema = Yup.object().shape({
-  longitude: Yup.string().required().label("Google Search"),
-  latitude: Yup.string().required().label("Google Search"),
-  google: Yup.string().required().label("Google Search")
+  // longitude: Yup.string().required().label("Google Search"),
+  // latitude: Yup.string().required().label("Google Search"),
+  // google: Yup.string().required().label("Google Search")
   // name: Yup.string().required().label("Name of Destination"),
   // address: Yup.string().required().label("Address"),
   // visited: Yup.string().required().label("Name of Destination"),
 
-  // username: Yup.string().required().label("Username"),
-  // email: Yup.string().required().email().label("Email"),
-  // password: Yup.string().required().min(4).label("Password"),
 });
 
-function DestinationNewScreen() {
+function DestinationNewScreen({navigation}) {
   const [visited, setVisited] = useState(false)
+  const [destinations, setDestinations] = useContext(DestinationContext)
+  const [user, setUser] = useContext(UserContext)
+  const [submitFailed, setSubmitFailed] = useState(false)
   
   {/* This const below is So that the Longitude and Latitude fields are always hidden */}
   const hiddenFields = false
 
+  handleSubmit = async (formData) => {
+    // console.log(formData);
+      const reqObj = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify(formData)
+        }
+  
+      await fetch('http://localhost:3000/api/v1/destinations', reqObj)
+      .then(resp => resp.json())
+      .then(newDestination =>{
+        if (newDestination.error){
+          return setSubmitFailed(true)
+        } else {
+          setDestinations([...destinations, newDestination])
+          navigation.navigate(routes.DESTINATION_LIST)
+        }
+      })
+   
+  }
+
   return (
     <Screen style={styles.container}>
+      <Text>{!destinations ? "Add Your First Destination" : null }</Text>
       <ScrollView>
         <Text style={styles.header}>Where to Next?</Text>
         <AppForm
           initialValues={{ 
-            google: "",
+            user_id: user.user.id,
             address: "", 
             name: "", 
             category: "", 
             visited: visited,
             date_visited: "",
-            cost: 0,
+            cost: null,
             attendees: "",
-            latitude: 0.0,
-            longitude: 0.0,
+            latitude: 0,
+            longitude: 0,
             }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(formData) => handleSubmit(formData)}
           validationSchema={validationSchema}
         >
+        <ErrorMessage error="The shit wasn't submitted" visible={submitFailed }/>
           <AppFormField
             autoCorrect={false}
             icon="magnify"
@@ -77,12 +106,16 @@ function DestinationNewScreen() {
           <AppText style={styles.visited}>
             Have You Visited Here Yet?
           </AppText>
-          <Switch 
+          <AppForm
             name="visited"
-            style={styles.switch} 
-            value={visited}
-            onValueChange={newValue => setVisited(newValue)}
-            />
+          >
+            <Switch 
+              name="visited"
+              style={styles.switch} 
+              value={visited}
+              onValueChange={newValue => setVisited(newValue)}
+              />
+          </AppForm>
           <View>
             {
             visited ?
@@ -129,7 +162,7 @@ function DestinationNewScreen() {
               null
             }
           </View>
-          <SubmitButton title="Add Destination"  />
+          <SubmitButton title="Add Destination" onPress={() => resetForm()}/>
         </AppForm>
       </ScrollView>
     </Screen>
