@@ -39,7 +39,7 @@ function ContextStore({children}) {
     latitude: '',
   }
 
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
   const [destinations, setDestinations] = useState([])
   const [marker, setMarker] = useState(markerSettings)
   const [isLoading, setLoading] = useState(true)
@@ -48,9 +48,9 @@ function ContextStore({children}) {
   return (
     <UserContext.Provider value={[ user, setUser ]}>
       <DestinationContext.Provider value={[destinations, setDestinations]}>
-            <MapMarkerContext.Provider value={[marker, setMarker]}>
-                {children}
-            </MapMarkerContext.Provider>
+        <MapMarkerContext.Provider value={[marker, setMarker]}>
+          {children}
+        </MapMarkerContext.Provider>
       </DestinationContext.Provider>
     </UserContext.Provider>
   );

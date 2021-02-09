@@ -14,6 +14,7 @@ export default function App() {
   const token = AsyncStorage.token
   // console.log(user);
   const user = useContext(UserContext)
+  // console.log(user);
   return (
     <ContextStore>
       <NavigationContainer theme={navigationTheme}>

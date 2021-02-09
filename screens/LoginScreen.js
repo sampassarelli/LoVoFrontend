@@ -39,7 +39,7 @@ function LoginScreen(props) {
         } else {
           AsyncStorage.setItem('jwt_token', userData.jwt_token)
           setUser(userData)
-          console.log(user);
+          // console.log(user);
         }
       })
   }
