@@ -1,32 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useContext } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 
 
-import DestinationListScreen from './screens/DestinationListScreen';
-import DestinationShowScreen from './screens/DestinationShowScreen';
-import WelcomeScreen from "./screens/WelcomeScreen";
-import AccountScreen from './screens/AccountScreen';
-import Screen from './components/Screen';
-import AppTextInput from './components/AppTextInput'
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
 import navigationTheme from "./navigation/navigationTheme";
 import AuthNavigator from "./navigation/AuthNavigator";
-import MapHome from './screens/MapHome';
-import DestinationNewScreen from './screens/DestinationNewScreen';
 import AppNavigator from './navigation/AppNavigator';
-import AccountEditScreen from './screens/AccountEditScreen';
-
+import ContextStore from './ContextStore'
+import UserContext from './components/contexts/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function App() {
+  const token = AsyncStorage.token
+  // console.log(user);
+  const user = useContext(UserContext)
   return (
-    // <AccountEditScreen/>
-    <NavigationContainer theme={navigationTheme}>
-      <AppNavigator />
-    </NavigationContainer>
+    <ContextStore>
+      <NavigationContainer theme={navigationTheme}>
+        {user ? <AppNavigator/> : <AuthNavigator />}
+      </NavigationContainer>
+    </ContextStore>
   );
 }
 

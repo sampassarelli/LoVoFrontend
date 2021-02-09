@@ -138,7 +138,7 @@ function DestinationNewScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 0,
+    padding: 10,
   },
   header: {
     alignSelf: "center",

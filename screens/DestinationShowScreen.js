@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList } from 'react-native';
 
 
 import Screen from "../components/Screen";
-import Card from "../components/Card";
+import CardShow from "../components/CardShow";
 import colors from "../config/colors";
 import AppButton from '../components/AppButton';
 
@@ -16,7 +16,7 @@ function DestinationShowScreen({ route }) {
   
   return(
     <Screen style={styles.screen}>
-      <Card
+      <CardShow
         name={destination.name}
         address={destination.address}
         category={destination.category}

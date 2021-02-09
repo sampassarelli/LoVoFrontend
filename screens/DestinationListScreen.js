@@ -1,40 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
 import CardItemDeleteAction from "../components/CardItemDeleteAction";
+import UserContext from "../components/contexts/UserContext";
+import DestinationContext from "../components/contexts/DestinationContext";
 
-const initialDestinations = [
-  {
-    id: 1,
-    title: "Destination 1 his is sample text to see what and how far the lines go",
-    description: "This Destination is amazing this is sample text to see what and how far the lines go",
-    image: require('../assets/seed-destination-image.jpg'),
-  },
-  {
-    id: 2,
-    title: "Destination 2",
-    description: "This Destination is ass",
-    // image: require('../assets/seed-destination-image.jpg'),
-  },
-  {
-    id: 3,
-    title: "Destination 3",
-    description: "This Destination is ok",
-    // image: require('../assets/seed-destination-image.jpg'),
-  },
-  {
-    id: 4,
-    title: "Destination 4",
-    description: "This Destination is the best",
-    image: require('../assets/seed-destination-image.jpg'),
-  },
-];
+// const initialDestinations = [
+//   {
+//     id: 1,
+//     title: "Destination 1 his is sample text to see what and how far the lines go",
+//     description: "This Destination is amazing this is sample text to see what and how far the lines go",
+//     image: require('../assets/seed-destination-image.jpg'),
+//   },
+//   {
+//     id: 2,
+//     title: "Destination 2",
+//     description: "This Destination is ass",
+//     // image: require('../assets/seed-destination-image.jpg'),
+//   },
+//   {
+//     id: 3,
+//     title: "Destination 3",
+//     description: "This Destination is ok",
+//     // image: require('../assets/seed-destination-image.jpg'),
+//   },
+//   {
+//     id: 4,
+//     title: "Destination 4",
+//     description: "This Destination is the best",
+//     image: require('../assets/seed-destination-image.jpg'),
+//   },
+// ];
 
 function DestinationListScreen({ navigation }) {
-  const [destinations, setDestinations] = useState([]);
+  const [user, setUser] = useContext(UserContext)
+  const [destinations, setDestinations] = useState(DestinationContext);
   
   useEffect(() => {
     loadDestinations()
