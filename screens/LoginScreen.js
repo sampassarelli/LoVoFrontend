@@ -3,12 +3,13 @@ import { StyleSheet, Image } from "react-native";
 import * as Yup from "yup";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Screen from "../components/Screen";
 import AppForm from "../components/forms/AppForm"
 import AppFormField from "../components/forms/AppFormField"
+import DestinationContext from '../components/contexts/DestinationContext'
+import ErrorMessage from "../components/forms/ErrorMessage";
+import Screen from "../components/Screen";
 import SubmitButton from "../components/forms/SubmitButton"
 import UserContext from "../components/contexts/UserContext";
-import ErrorMessage from "../components/forms/ErrorMessage";
 
 
 
@@ -20,6 +21,7 @@ const validationSchema = Yup.object().shape({
 function LoginScreen(props) {
   // const userContext = useContext(UserContext)
   const [user, setUser] = useContext(UserContext)
+  const [destinations, setDestinations] = useContext(DestinationContext);
   const [loginFailed, setLoginFailed] = useState(false)
 
   const handleSubmit = (loginData) => {
@@ -37,9 +39,10 @@ function LoginScreen(props) {
         if (userData.error){
           return setLoginFailed(true)
         } else {
+          setDestinations(userData.user.destinations)
           AsyncStorage.setItem('jwt_token', userData.jwt_token)
           setUser(userData)
-          // console.log(user);
+          // console.log(userData.user.destinations)
         }
       })
   }

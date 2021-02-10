@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, Switch } from 'react-native';
 import * as Yup from "yup";
 
@@ -19,12 +19,19 @@ function DestinationEditScreen({route, navigation}) {
   const destination = route.params
   const [user, setUser] = useContext(UserContext)
   const [destinations, setDestinations] = useContext(DestinationContext)
+  const [destin, setDestin] = useState(destination)
   const [submitFailed, setSubmitFailed] = useState(false)
-  const [visited, setVisited] = useState(destination.visited)
   const hiddenFields = false
   
-
-  console.log(destination)
+  ////////// These Individual States Are So I can Edit My Form //////////
+  const [name, setName] = useState(destination.name)
+  const [visited, setVisited] = useState(destination.visited)
+  const [address, setAddress] = useState(destination.address)
+  const [category, setCategory] = useState(destination.category)
+  const [comment, setComment] = useState(destination.comment)
+  const [dateVisited, setDateVisited] = useState(destination.date_visited)
+  const [cost, setCost] = useState(destination.cost)
+  const [attendees, setAttendees] = useState(destination.attendees)
 
   const validationSchema = Yup.object().shape({
     // longitude: Yup.string().required().label("Google Search"),
@@ -35,6 +42,10 @@ function DestinationEditScreen({route, navigation}) {
     // visited: Yup.string().required().label("Name of Destination"),
   
   });
+
+  // useEffect(() => {
+  //   setDestin(destination)
+  // },[])
 
   handleSubmit = async (formData) => {
     formData.visited = visited
@@ -53,7 +64,7 @@ function DestinationEditScreen({route, navigation}) {
       if (updatedDestination.error){
         return setSubmitFailed(true)
       } else {
-        setDestinations(destinations.map(d => d.id === destination.id ? destination : d))
+        setDestinations(destinations.map(d => d.id === destination.id ? updatedDestination : d))
         console.log(updatedDestination)
         navigation.navigate(routes.DESTINATION_LIST)
       }
@@ -86,25 +97,29 @@ function DestinationEditScreen({route, navigation}) {
             autoCorrect
             name="name"
             placeholder="Name"
-            value={destination.name}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <AppFormField
             autoCorrect
             name="address"
             placeholder="Address"
-            value={destination.address}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
           <AppFormField
             autoCorrect
             name="category"
             placeholder="Category"
-            value={destination.category}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
           />
           <AppFormField
             autoCorrect
             name="comment"
             placeholder="Comment"
-            value={destination.comment}  
+            value={comment}  
+            onChange={(e) => setComment(e.target.value)}
           />
           <AppText style={styles.visited}>
             Have You Visited Here Yet?
@@ -126,19 +141,22 @@ function DestinationEditScreen({route, navigation}) {
                 autoCorrect
                 name="date_visited"
                 placeholder="Date Visited"
-                value={destination.date_visited}
+                value={dateVisited}
+                onChange={(e) => setDateVisited(e.target.value)}
               />
               <AppFormField
                 autoCorrect
                 name="cost"
                 placeholder="Money Spent"
-                value={destination.cost ? destination.cost.toString() : null }
+                value={cost ? cost.toString() : null }
+                onChange={(e) => setCost(e.target.value)}
               />
               <AppFormField
                 autoCorrect
                 name="attendees"
                 placeholder="Attendees"
-                value={destination.attendees}
+                value={attendees}
+                onChange={(e) => setAttendees(e.target.value)}
               />
               </View>
               :

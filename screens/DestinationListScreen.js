@@ -37,12 +37,12 @@ import DestinationContext from "../components/contexts/DestinationContext";
 
 function DestinationListScreen({ navigation }) {
   const [user, setUser] = useContext(UserContext)
-  const [destinations, setDestinations] = useState(DestinationContext);
+  const [destinations, setDestinations] = useContext(DestinationContext);
   
-  useEffect(() => {
-    setDestinations(user.user.destinations)
-    // loadDestinations()
-  },[])
+  // useEffect(() => {
+  //   setDestinations(destinations)
+  //   // console.log(user.user.destinations);
+  // },[])
 
   // const loadDestinations = async () => {
   //   await fetch(`http://localhost:3000/api/v1/users/${user.id}`)
