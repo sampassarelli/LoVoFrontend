@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
@@ -62,14 +62,17 @@ function DestinationListScreen({ navigation }) {
   
   return (
     <Screen style={styles.screen}>
+      <Text>{!destinations ? "Add Your First Destination" : null }</Text>
+
       <FlatList
         data={destinations}
         keyExtractor={(destination) => destination.id.toString()}
         renderItem={({ item }) => (
           <Card
             name={item.name}
-            address={item.address}
+            // address={item.address}
             image={item.image}
+            visited={item.visited}
             onPress={() => navigation.navigate("DestinationShow", item)}
             renderRightActions={() => (
               <CardItemDeleteAction onPress={() => handleDelete(item)} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
@@ -26,6 +26,7 @@ function Card({
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
             {name && <AppText style={styles.title} numberOfLines={1}>{name}</AppText>}
+            {visited ? <Text style={styles.visited} numberOfLines={1}>Visited</Text> : <Text style={styles.notVisited} numberOfLines={1}>Not Visited</Text>}
             {address && <AppText style={styles.subTitle} numberOfLines={1}>{address}</AppText>}
             {category && <AppText style={styles.subTitle} numberOfLines={1}>{category}</AppText>}
             {dateVisited && <AppText style={styles.subTitle} numberOfLines={1}>{dateVisited}</AppText>}
@@ -53,12 +54,20 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
   },
+  notVisited: {
+    color: colors.danger,
+    fontWeight: "bold",
+  },
   subTitle: {
     color: colors.primary,
     fontWeight: "bold",
   },
   title: {
     marginBottom: 7,
+  },
+  visited: {
+    color: colors.primary,
+    fontWeight: "bold",
   },
 });
 

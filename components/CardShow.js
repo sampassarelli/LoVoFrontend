@@ -23,13 +23,25 @@ function Card({
         <View style={styles.card}>
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
-            {name && <AppText style={styles.title} numberOfLines={1}>{name}</AppText>}
-            {address && <AppText style={styles.subTitle} numberOfLines={1}>{address}</AppText>}
+            {name && <AppText style={styles.title} numberOfLines={4}>{name}</AppText>}
+
+            {address && <Text style={styles.header}>Address:</Text>}
+            {address && <AppText style={styles.subTitle} numberOfLines={4}>{address}</AppText>}
+
+            {category && <Text style={styles.header}>Category:</Text>}
             {category && <AppText style={styles.subTitle} numberOfLines={1}>{category}</AppText>}
+
+            {dateVisited && <Text style={styles.header}>Date Visited:</Text>}
             {dateVisited && <AppText style={styles.subTitle} numberOfLines={1}>{dateVisited}</AppText>}
-            {comment && <AppText style={styles.subTitle} numberOfLines={3}>{comment}</AppText>}
+            
+            {comment && <Text style={styles.header}>Memories/Comments:</Text>}
+            {comment && <AppText style={styles.subTitle} numberOfLines={20}>{comment}</AppText>}
+
+            {cost && <Text style={styles.header}>Money Spent:</Text>}
             {cost && <AppText style={styles.subTitle} numberOfLines={1}>{cost}</AppText>}
-            {attendees && <AppText style={styles.subTitle} numberOfLines={1}>{attendees}</AppText>}
+            
+            {attendees && <Text style={styles.header}>Attendees:</Text>}
+            {attendees && <AppText style={styles.subTitle} numberOfLines={5}>{attendees}</AppText>}
           </View>
         </View>
   );
@@ -45,16 +57,21 @@ const styles = StyleSheet.create({
   detailsContainer: {
     padding: 20,
   },
+  header:{
+    marginTop: 10,
+    color: colors.primary,
+  },
   image: {
     width: "100%",
     height: 200,
   },
   subTitle: {
-    color: colors.primary,
-    fontWeight: "bold",
+    color: colors.dark,
+    fontWeight: "300",
   },
   title: {
     marginBottom: 7,
+    fontSize: 25
   },
 });
 

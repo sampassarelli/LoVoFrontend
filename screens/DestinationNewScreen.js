@@ -12,6 +12,8 @@ import DestinationContext from "../components/contexts/DestinationContext";
 import ErrorMessage from "../components/forms/ErrorMessage";
 import UserContext from '../components/contexts/UserContext'
 import routes from '../navigation/routes'
+import AppTextInput from "../components/AppTextInput";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const validationSchema = Yup.object().shape({
   // longitude: Yup.string().required().label("Google Search"),
@@ -33,7 +35,8 @@ function DestinationNewScreen({navigation}) {
   const hiddenFields = false
 
   handleSubmit = async (formData) => {
-    // console.log(formData);
+      formData.visited = visited
+      console.log(formData);
       const reqObj = {
         method: 'POST',
         headers: {
@@ -54,35 +57,66 @@ function DestinationNewScreen({navigation}) {
       })
    
   }
+    const key = "AIzaSyAKojKBIz_9aWqfmTtQphlSlmoOk-ujYFs"
+
 
   return (
     <Screen style={styles.container}>
       <Text>{!destinations ? "Add Your First Destination" : null }</Text>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps={"handled"}>
         <Text style={styles.header}>Where to Next?</Text>
+          <GooglePlacesAutocomplete
+              style={styles.autocomplete}
+              placeholder="GOOGLE SEARCH"
+              minLength={2} 
+              autoFocus={false}
+              returnKeyType={'search'}
+              listViewDisplayed="auto"
+              fetchDetails={true}
+              renderDescription={row => row.description} // custom description render
+              onPress={(data) => {
+                console.log('data',data);
+                // console.log('details',details);
+              }}
+              getDefaultValue={() => {
+                return ''; // text input default value
+              }}
+              query={{
+                key: key,
+                language: 'en',
+              }}
+              nearbyPlacesAPI="GooglePlacesSearch" 
+              GooglePlacesSearchQuery={{
+                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                rankby: 'distance',
+              }}
+              debounce={200}
+            />
+            <AppTextInput
+                autoCorrect={false}
+                icon="magnify"
+                placeholder="GOOGLE SEARCH"
+            />
+        
+
         <AppForm
           initialValues={{ 
             user_id: user.user.id,
-            address: "", 
-            name: "", 
-            category: "", 
-            visited: visited,
-            date_visited: "",
-            cost: null,
-            attendees: "",
-            latitude: 0,
-            longitude: 0,
+            // address: null, 
+            // name: null, 
+            // category: null, 
+            // visited: visited,
+            // date_visited: null,
+            // cost: null,
+            // attendees: null,
+            // latitude: null,
+            // longitude: null,
             }}
           onSubmit={(formData) => handleSubmit(formData)}
           validationSchema={validationSchema}
         >
         <ErrorMessage error="The shit wasn't submitted" visible={submitFailed }/>
-          <AppFormField
-            autoCorrect={false}
-            icon="magnify"
-            name="google"
-            placeholder="GOOGLE SEARCH"
-          />
+          
           <AppFormField
             autoCorrect
             name="name"
@@ -106,16 +140,12 @@ function DestinationNewScreen({navigation}) {
           <AppText style={styles.visited}>
             Have You Visited Here Yet?
           </AppText>
-          <AppForm
-            name="visited"
-          >
             <Switch 
               name="visited"
               style={styles.switch} 
               value={visited}
               onValueChange={newValue => setVisited(newValue)}
               />
-          </AppForm>
           <View>
             {
             visited ?
@@ -125,7 +155,7 @@ function DestinationNewScreen({navigation}) {
               </Text>
               <AppFormField
                 autoCorrect
-                name="date"
+                name="date_visited"
                 placeholder="Date Visited - MM/DD/YYYY"
               />
               <AppFormField
@@ -162,7 +192,7 @@ function DestinationNewScreen({navigation}) {
               null
             }
           </View>
-          <SubmitButton title="Add Destination" onPress={() => resetForm()}/>
+          <SubmitButton title="Add Destination" onSubmit={() => resetForm()}/>
         </AppForm>
       </ScrollView>
     </Screen>
