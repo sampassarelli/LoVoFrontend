@@ -21,14 +21,14 @@ function MapHome(props) {
         coordinate={{latitude: destination.latitude, longitude: destination.longitude}}
         title={destination.name}
         description={ destination.visited ? "Visited" : "Not Visited"}
-        // pinColor={ destination.visited ? "turquoise" : "red"}
+        pinColor={ destination.visited ? "turquoise" : "red"}
       >
-        {destination.visited 
+        {/* {destination.visited 
         ? 
         <Image source={require('../assets/BlueTrimmed.png')}  />
         :
         <Image source={require('../assets/RedTrimmed.png')}  />
-      }
+      } */}
       </Marker>
     })
   }
@@ -45,19 +45,8 @@ function MapHome(props) {
           latitudeDelta: 0.5
         }}
       >
-        {/* <Marker
-          coordinate={{latitude: 41.781570, longitude: -87.887780}}
-          title="Palmer Place"
-          description="Not Visited"
-          pinColor={'turquoise'}
-        >
-          </Marker> */}
         {mapMarkers()}
       </MapView>
-
-    // <Screen>
-    //   <View style={styles.container}><Text>Hello From the Map Home Screen</Text></View>
-    // </Screen>
   );
 }
 

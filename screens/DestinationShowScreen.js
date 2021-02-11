@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, StyleSheet, FlatList, ScrollView, LogBox } from 'react-native';
 
 
 import Screen from "../components/Screen";
@@ -7,6 +7,8 @@ import CardShow from "../components/CardShow";
 import colors from "../config/colors";
 import AppButton from '../components/AppButton';
 import routes from '../navigation/routes'
+import PullDownBar from '../components/PullDownBar';
+import MapView from 'react-native-maps';
 
 
 function DestinationShowScreen({ route, navigation }) {
@@ -16,6 +18,7 @@ function DestinationShowScreen({ route, navigation }) {
   
   return(
     <Screen style={styles.screen}>
+      <PullDownBar style={styles.pull}></PullDownBar>
       <ScrollView>
         <CardShow
           name={destination.name}
@@ -35,8 +38,13 @@ function DestinationShowScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 20,
+    paddingLeft: 4,
+    paddingRight: 4,
+    paddingTop: 20,
     backgroundColor: colors.light
+  },
+  pull:{
+    alignSelf: "center"
   },
 });
 

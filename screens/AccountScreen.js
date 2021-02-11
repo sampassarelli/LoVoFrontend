@@ -45,7 +45,7 @@ function AccountScreen({ navigation }) {
         />
       </View>
 
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <FlatList
           data={menuItems}
           keyExtractor={menuItem => menuItem.title}
@@ -68,7 +68,7 @@ function AccountScreen({ navigation }) {
         title="Logout"
         IconComponent ={<Icon name="logout" backgroundColor={colors.medium}/>}
         onPress={() => setUser(null)}
-      />
+      /> */}
     </Screen>
   );
 }

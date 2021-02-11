@@ -6,7 +6,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import AppText from "./AppText";
 import colors from "../config/colors";
 
-function Card({ 
+function CardAccountShow({ 
   name, 
   address, 
   image,
@@ -21,14 +21,14 @@ function Card({
 }) {
   return (
         <View style={styles.card}>
-          {<Image style={styles.image} source={require('../assets/seed-destination-image.jpg')} />}
+          {<Image style={styles.image} source={require("../assets/profile-pic.jpeg")} />}
           <View style={styles.detailsContainer}>
-            {name && <AppText style={styles.title} numberOfLines={4}>{name}</AppText>}
+            {name && <AppText style={styles.title} numberOfLines={4}>Hello, {name}</AppText>}
 
-            {address && <Text style={styles.header}>Address:</Text>}
+            {address && <Text style={styles.header}>Username:</Text>}
             {address && <AppText style={styles.subTitle} numberOfLines={4}>{address}</AppText>}
 
-            {category && <Text style={styles.header}>Category:</Text>}
+            {category && <Text style={styles.header}>Email:</Text>}
             {category && <AppText style={styles.subTitle} numberOfLines={1}>{category}</AppText>}
 
             {dateVisited && <Text style={styles.header}>Date Visited:</Text>}
@@ -49,7 +49,7 @@ function Card({
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 10,
+    borderRadius: 20,
     backgroundColor: colors.white,
     marginBottom: 20,
     overflow: "hidden",
@@ -62,8 +62,11 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   image: {
-    width: "100%",
+    width: "50%",
     height: 200,
+    borderRadius: 50,
+    alignSelf: "center",
+    marginTop: 20
   },
   subTitle: {
     color: colors.dark,
@@ -75,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default CardAccountShow;

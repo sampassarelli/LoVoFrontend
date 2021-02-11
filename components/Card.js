@@ -42,7 +42,7 @@ function Card({
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 15,
+    borderRadius: 10,
     backgroundColor: colors.white,
     marginBottom: 20,
     overflow: "hidden",

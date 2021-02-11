@@ -10,6 +10,7 @@ import ErrorMessage from "../components/forms/ErrorMessage";
 import Screen from "../components/Screen";
 import SubmitButton from "../components/forms/SubmitButton"
 import UserContext from "../components/contexts/UserContext";
+import PullDownBar from "../components/PullDownBar";
 
 
 
@@ -49,6 +50,7 @@ function LoginScreen(props) {
 
   return (
     <Screen style={styles.container}>
+      
       <Image style={styles.logo} source={require("../assets/signUpLogo.png")} />
       <ErrorMessage />
       <AppForm

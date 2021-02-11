@@ -9,6 +9,7 @@ import UserContext from "../components/contexts/UserContext";
 import DestinationContext from "../components/contexts/DestinationContext";
 import AppTextInput from '../components/AppTextInput'
 import defaultStyles from "../config/styles";
+import PullDownBar from "../components/PullDownBar";
 
 
 // const initialDestinations = [

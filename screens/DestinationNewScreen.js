@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { KeyboardAvoidingView, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import { KeyboardAvoidingView, LogBox, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import * as Yup from "yup";
+import {YellowBox} from 'react-native';
 
 import Screen from "../components/Screen";
 import AppForm from "../components/forms/AppForm"
@@ -28,6 +29,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function DestinationNewScreen({navigation}) {
+  LogBox.ignoreLogs(['VirtualizedLists'])
   const [visited, setVisited] = useState(false)
   const [destinations, setDestinations] = useContext(DestinationContext)
   const [user, setUser] = useContext(UserContext)
@@ -50,7 +52,6 @@ function DestinationNewScreen({navigation}) {
       formData.address = address
       formData.longitude = longitude
       formData.latitude = latitude
-      console.log(formData);
       const reqObj = {
         method: 'POST',
         headers: {
@@ -115,12 +116,12 @@ function DestinationNewScreen({navigation}) {
 
           <ErrorMessage error="Please Use Google Search to Find Your Destination!" visible={submitFailed }/>
 
-          <AppTextInput
+          {/* <AppTextInput
               autoCorrect={false}
               icon="magnify"
               placeholder="GOOGLE SEARCH"
           />
-        
+         */}
 
         <AppForm
           initialValues={{ 

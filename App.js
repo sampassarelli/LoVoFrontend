@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
-
+import { LogBox } from 'react-native';
 
 import navigationTheme from "./navigation/navigationTheme";
 import AuthNavigator from "./navigation/AuthNavigator";
@@ -14,7 +14,8 @@ export default function App() {
   const [user, setUser] = useState()
   const [destinations, setDestinations] = useState([])
   // console.log(user)
-
+  
+  LogBox.ignoreAllLogs(['Warning: ...'])
   return (
     <UserContext.Provider value={[ user, setUser ]}>
       <DestinationContext.Provider value={[destinations, setDestinations]}>

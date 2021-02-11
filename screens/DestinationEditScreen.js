@@ -64,7 +64,6 @@ function DestinationEditScreen({route, navigation}) {
         return setSubmitFailed(true)
       } else {
         setDestinations(destinations.map(d => d.id === destination.id ? updatedDestination : d))
-        console.log(updatedDestination)
         navigation.navigate(routes.DESTINATION_LIST)
       }
     })
@@ -72,7 +71,7 @@ function DestinationEditScreen({route, navigation}) {
 
 
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <ScrollView>
         <AppForm
           initialValues={{ 
@@ -184,7 +183,6 @@ function DestinationEditScreen({route, navigation}) {
             }
           </View>
           <SubmitButton title="Update Destination"/>
-          <AppButton title="Cancel"/>
         </AppForm>
       </ScrollView>
     </Screen>
