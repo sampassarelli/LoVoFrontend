@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, StyleSheet,Text } from 'react-native';
+import { View, StyleSheet,Text, Image } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import {Marker} from 'react-native-maps'
 
@@ -15,13 +15,20 @@ function MapHome(props) {
   console.log(destinations);
 
   mapMarkers = () => {
-      destinations.map((destination) => {
-      <Marker
+      return destinations.map((destination) => {
+      return <Marker
         key={destination.id}
         coordinate={{latitude: destination.latitude, longitude: destination.longitude}}
         title={destination.name}
-        description={destination.address}
+        description={ destination.visited ? "Visited" : "Not Visited"}
+        // pinColor={ destination.visited ? "turquoise" : "red"}
       >
+        {destination.visited 
+        ? 
+        <Image source={require('../assets/BlueTrimmed.png')}  />
+        :
+        <Image source={require('../assets/RedTrimmed.png')}  />
+      }
       </Marker>
     })
   }
@@ -29,12 +36,13 @@ function MapHome(props) {
   
       <MapView
         style={styles.map}
+        showsUserLocation={true}
         // provider={PROVIDER_GOOGLE}
         initialRegion={{
           longitude: -87.629799,
           latitude: 41.878113,
-          longitudeDelta: 0.4,
-          latitudeDelta: 0.8
+          longitudeDelta: 0.2,
+          latitudeDelta: 0.5
         }}
       >
         {/* <Marker

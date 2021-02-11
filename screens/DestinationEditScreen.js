@@ -19,7 +19,6 @@ function DestinationEditScreen({route, navigation}) {
   const destination = route.params
   const [user, setUser] = useContext(UserContext)
   const [destinations, setDestinations] = useContext(DestinationContext)
-  const [destin, setDestin] = useState(destination)
   const [submitFailed, setSubmitFailed] = useState(false)
   const hiddenFields = false
   
@@ -49,7 +48,7 @@ function DestinationEditScreen({route, navigation}) {
 
   handleSubmit = async (formData) => {
     formData.visited = visited
-    // console.log(formData);
+
     const reqObj = {
       method: 'Patch',
       headers: {
@@ -78,15 +77,15 @@ function DestinationEditScreen({route, navigation}) {
         <AppForm
           initialValues={{ 
             user_id: user.user.id,
-            address: destination.address, 
-            name: destination.name, 
-            category: destination.category, 
-            visited: destination.visited,
-            date_visited: destination.date_visited,
-            // cost: destination.cost.toString(),
-            attendees: destination.attendees,
-            latitude: destination.latitude,
-            longitude: destination.longitude,
+            // address: destination.address, 
+            // name: destination.name, 
+            // category: destination.category, 
+            // visited: destination.visited,
+            // date_visited: destination.date_visited,
+            // // cost: destination.cost.toString(),
+            // attendees: destination.attendees,
+            // latitude: destination.latitude,
+            // longitude: destination.longitude,
           }}
           onSubmit={(formData) => handleSubmit(formData)}
           validationSchema={validationSchema}

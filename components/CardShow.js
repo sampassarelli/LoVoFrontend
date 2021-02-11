@@ -21,7 +21,7 @@ function Card({
 }) {
   return (
         <View style={styles.card}>
-          {image && <Image style={styles.image} source={image} />}
+          {<Image style={styles.image} source={require('../assets/seed-destination-image.jpg')} />}
           <View style={styles.detailsContainer}>
             {name && <AppText style={styles.title} numberOfLines={4}>{name}</AppText>}
 
@@ -37,8 +37,8 @@ function Card({
             {comment && <Text style={styles.header}>Memories/Comments:</Text>}
             {comment && <AppText style={styles.subTitle} numberOfLines={20}>{comment}</AppText>}
 
-            {cost && <Text style={styles.header}>Money Spent:</Text>}
-            {cost && <AppText style={styles.subTitle} numberOfLines={1}>{cost}</AppText>}
+            {/* {cost && <Text style={styles.header}>Money Spent:</Text>}
+            {cost && <AppText style={styles.subTitle} numberOfLines={1}>{cost}</AppText>} */}
             
             {attendees && <Text style={styles.header}>Attendees:</Text>}
             {attendees && <AppText style={styles.subTitle} numberOfLines={5}>{attendees}</AppText>}

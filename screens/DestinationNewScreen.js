@@ -14,6 +14,8 @@ import UserContext from '../components/contexts/UserContext'
 import routes from '../navigation/routes'
 import AppTextInput from "../components/AppTextInput";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import defaultStyles from "../config/styles";
+
 
 const validationSchema = Yup.object().shape({
   // longitude: Yup.string().required().label("Google Search"),
@@ -30,12 +32,24 @@ function DestinationNewScreen({navigation}) {
   const [destinations, setDestinations] = useContext(DestinationContext)
   const [user, setUser] = useContext(UserContext)
   const [submitFailed, setSubmitFailed] = useState(false)
+
+  ////////// local state to hold google places details and set values to the fields //////////
+  const [name, setName] = useState(null)
+  const [address, setAddress] = useState(null)
+  const [longitude, setLongitude] = useState(null)
+  const [latitude, setLatitude] = useState(null)
+
   
   {/* This const below is So that the Longitude and Latitude fields are always hidden */}
   const hiddenFields = false
 
   handleSubmit = async (formData) => {
+    ////////// I have to set these values again because they aren't being updated by the time I submit the form. This forces them to update //////////
       formData.visited = visited
+      formData.name = name
+      formData.address = address
+      formData.longitude = longitude
+      formData.latitude = latitude
       console.log(formData);
       const reqObj = {
         method: 'POST',
@@ -62,71 +76,74 @@ function DestinationNewScreen({navigation}) {
 
   return (
     <Screen style={styles.container}>
-      <Text>{!destinations ? "Add Your First Destination" : null }</Text>
+
       <ScrollView keyboardShouldPersistTaps={"handled"}>
+
         <Text style={styles.header}>Where to Next?</Text>
+
           <GooglePlacesAutocomplete
-              style={styles.autocomplete}
+            styles={
+              styles.google
+            }
+            placeholder="GOOGLE SEARCH"
+            minLength={2} 
+            autoFocus={false}
+            returnKeyType={'search'}
+            listViewDisplayed="auto"
+            fetchDetails={true}
+            renderDescription={row => row.description} // description is the name of the key in the object that will render when you search
+            onPress={(data, details) => {
+              setName(details.name)
+              setAddress(details.formatted_address)
+              setLongitude(details.geometry.location.lng)
+              setLatitude(details.geometry.location.lat)
+            }}
+            getDefaultValue={() => {
+              return ''; // text input default value
+            }}
+            query={{
+              key: key,
+              language: 'en',
+            }}
+            nearbyPlacesAPI="GooglePlacesSearch" 
+            GooglePlacesSearchQuery={{
+              // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+              rankby: 'distance',
+            }}
+            debounce={200}
+          />
+
+          <ErrorMessage error="Please Use Google Search to Find Your Destination!" visible={submitFailed }/>
+
+          <AppTextInput
+              autoCorrect={false}
+              icon="magnify"
               placeholder="GOOGLE SEARCH"
-              minLength={2} 
-              autoFocus={false}
-              returnKeyType={'search'}
-              listViewDisplayed="auto"
-              fetchDetails={true}
-              renderDescription={row => row.description} // custom description render
-              onPress={(data) => {
-                console.log('data',data);
-                // console.log('details',details);
-              }}
-              getDefaultValue={() => {
-                return ''; // text input default value
-              }}
-              query={{
-                key: key,
-                language: 'en',
-              }}
-              nearbyPlacesAPI="GooglePlacesSearch" 
-              GooglePlacesSearchQuery={{
-                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                rankby: 'distance',
-              }}
-              debounce={200}
-            />
-            <AppTextInput
-                autoCorrect={false}
-                icon="magnify"
-                placeholder="GOOGLE SEARCH"
-            />
+          />
         
 
         <AppForm
           initialValues={{ 
             user_id: user.user.id,
-            // address: null, 
-            // name: null, 
+            address: address, 
+            name: name, 
             // category: null, 
             // visited: visited,
             // date_visited: null,
             // cost: null,
             // attendees: null,
-            // latitude: null,
-            // longitude: null,
+            latitude: latitude,
+            longitude: longitude,
             }}
-          onSubmit={(formData) => handleSubmit(formData)}
+          onSubmit={(formData, {resetForm}) => {
+            handleSubmit(formData)
+            resetForm({formData: ""})
+            }
+          }
           validationSchema={validationSchema}
         >
-        <ErrorMessage error="The shit wasn't submitted" visible={submitFailed }/>
           
-          <AppFormField
-            autoCorrect
-            name="name"
-            placeholder="Name"
-          />
-          <AppFormField
-            autoCorrect
-            name="address"
-            placeholder="Address"
-          />
+        
           <AppFormField
             autoCorrect
             name="category"
@@ -181,11 +198,25 @@ function DestinationNewScreen({navigation}) {
               <View>
                 <AppFormField
                   autoCorrect
+                  name="name"
+                  placeholder="Name"
+                  value={name}
+                />
+                <AppFormField
+                  autoCorrect
+                  name="address"
+                  placeholder="Address"
+                  value={address}
+                />
+                <AppFormField
+                  autoCorrect
                   name="longitude"
+                  value={longitude}
                 />
                 <AppFormField
                   autoCorrect
                   name="latitude"
+                  value={latitude}
                 />
               </View>
               :
@@ -202,6 +233,14 @@ function DestinationNewScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+  },
+  google:{
+    backgroundColor: defaultStyles.colors.light,
+    borderRadius: 25,
+    flexDirection: "row",
+    width: "100%",
+    padding: 15,
+    marginVertical: 10,
   },
   header: {
     alignSelf: "center",

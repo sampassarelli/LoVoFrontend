@@ -23,7 +23,7 @@ function Card({
     <Swipeable renderRightActions={renderRightActions}> 
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.card}>
-          {image && <Image style={styles.image} source={image} />}
+          {<Image style={styles.image} source={require('../assets/seed-destination-image.jpg')} />}
           <View style={styles.detailsContainer}>
             {name && <AppText style={styles.title} numberOfLines={1}>{name}</AppText>}
             {visited ? <Text style={styles.visited} numberOfLines={1}>Visited</Text> : <Text style={styles.notVisited} numberOfLines={1}>Not Visited</Text>}
@@ -31,7 +31,7 @@ function Card({
             {category && <AppText style={styles.subTitle} numberOfLines={1}>{category}</AppText>}
             {dateVisited && <AppText style={styles.subTitle} numberOfLines={1}>{dateVisited}</AppText>}
             {comment && <AppText style={styles.subTitle} numberOfLines={3}>{comment}</AppText>}
-            {cost && <AppText style={styles.subTitle} numberOfLines={1}>{cost}</AppText>}
+            {/* {cost && <AppText style={styles.subTitle} numberOfLines={1}>{cost}</AppText>} */}
             {attendees && <AppText style={styles.subTitle} numberOfLines={1}>{attendees}</AppText>}
           </View>
         </View>

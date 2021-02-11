@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
@@ -7,6 +7,9 @@ import colors from "../config/colors";
 import CardItemDeleteAction from "../components/CardItemDeleteAction";
 import UserContext from "../components/contexts/UserContext";
 import DestinationContext from "../components/contexts/DestinationContext";
+import AppTextInput from '../components/AppTextInput'
+import defaultStyles from "../config/styles";
+
 
 // const initialDestinations = [
 //   {
@@ -62,25 +65,35 @@ function DestinationListScreen({ navigation }) {
   
   return (
     <Screen style={styles.screen}>
-      <Text>{!destinations ? "Add Your First Destination" : null }</Text>
+      <ScrollView>
 
-      <FlatList
-        data={destinations}
-        keyExtractor={(destination) => destination.id.toString()}
-        renderItem={({ item }) => (
-          <Card
-            name={item.name}
-            // address={item.address}
-            image={item.image}
-            visited={item.visited}
-            onPress={() => navigation.navigate("DestinationShow", item)}
-            renderRightActions={() => (
-              <CardItemDeleteAction onPress={() => handleDelete(item)} />
-            )}
-            
-          />
-        )}
-      />
+        <AppTextInput
+          style={styles.search}
+          autoCorrect={false}
+          icon="magnify"
+          placeholder="SEARCH DESTINATIONS"
+        />
+
+        <Text>{!destinations ? "Add Your First Destination" : null }</Text>
+
+        <FlatList
+          data={destinations}
+          keyExtractor={(destination) => destination.id.toString()}
+          renderItem={({ item }) => (
+            <Card
+              name={item.name}
+              // address={item.address}
+              image={item.image}
+              visited={item.visited}
+              onPress={() => navigation.navigate("DestinationShow", item)}
+              renderRightActions={() => (
+                <CardItemDeleteAction onPress={() => handleDelete(item)} />
+              )}
+              
+            />
+          )}
+        />
+      </ScrollView>
     </Screen>
    
   );
@@ -88,10 +101,15 @@ function DestinationListScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingBottom: 0,
     backgroundColor: colors.light
-  }
+  },
+  search:{
+    marginVertical: 0,
+    backgroundColor: defaultStyles.colors.light
+  },
 });
 
 export default DestinationListScreen;
