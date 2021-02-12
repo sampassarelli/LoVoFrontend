@@ -12,7 +12,7 @@ function MapHome(props) {
   const [user, setUser] = useContext(UserContext)
   const [destinations, setDestinations] = useContext(DestinationContext)
 
-  console.log(destinations);
+  // console.log(destinations);
 
   mapMarkers = () => {
       return destinations.map((destination) => {

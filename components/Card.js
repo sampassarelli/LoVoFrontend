@@ -23,7 +23,7 @@ function Card({
     <Swipeable renderRightActions={renderRightActions}> 
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.card}>
-          {<Image style={styles.image} source={require('../assets/seed-destination-image.jpg')} />}
+          {image && <Image style={styles.image} source={{uri : image}} />}
           <View style={styles.detailsContainer}>
             {name && <AppText style={styles.title} numberOfLines={1}>{name}</AppText>}
             {visited ? <Text style={styles.visited} numberOfLines={1}>Visited</Text> : <Text style={styles.notVisited} numberOfLines={1}>Not Visited</Text>}

@@ -21,7 +21,7 @@ function Card({
 }) {
   return (
         <View style={styles.card}>
-          {<Image style={styles.image} source={require('../assets/seed-destination-image.jpg')} />}
+          {image && <Image style={styles.image} source={{uri : image}} />}
           <View style={styles.detailsContainer}>
             {name && <AppText style={styles.title} numberOfLines={4}>{name}</AppText>}
 

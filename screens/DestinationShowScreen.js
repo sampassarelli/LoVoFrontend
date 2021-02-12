@@ -13,6 +13,7 @@ import MapView from 'react-native-maps';
 
 function DestinationShowScreen({ route, navigation }) {
   const destination = route.params
+  console.log(destination);
   
   // const [destination, setDestination] = useState(singleDestination);
   

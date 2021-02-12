@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { KeyboardAvoidingView, LogBox, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import * as Yup from "yup";
-import {YellowBox} from 'react-native';
 
 import Screen from "../components/Screen";
 import AppForm from "../components/forms/AppForm"
@@ -16,6 +15,7 @@ import routes from '../navigation/routes'
 import AppTextInput from "../components/AppTextInput";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import defaultStyles from "../config/styles";
+import ImageInput from "../components/ImageInput";
 
 
 const validationSchema = Yup.object().shape({
@@ -52,6 +52,7 @@ function DestinationNewScreen({navigation}) {
       formData.address = address
       formData.longitude = longitude
       formData.latitude = latitude
+      console.log(formData)
       const reqObj = {
         method: 'POST',
         headers: {
@@ -135,10 +136,11 @@ function DestinationNewScreen({navigation}) {
             // attendees: null,
             latitude: latitude,
             longitude: longitude,
+            // image: null,
             }}
           onSubmit={(formData, {resetForm}) => {
             handleSubmit(formData)
-            resetForm({formData: ""})
+            resetForm({})
             }
           }
           validationSchema={validationSchema}
@@ -186,6 +188,8 @@ function DestinationNewScreen({navigation}) {
                 name="attendees"
                 placeholder="Attendees"
               />
+              <ImageInput name="image" style={styles.image}/>
+
               </View>
               :
               null
@@ -249,6 +253,9 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     paddingVertical: 20,
     color: colors.primary,
+  },
+  image:{
+    alignSelf: "center"
   },
   optional: {
     paddingLeft: 10

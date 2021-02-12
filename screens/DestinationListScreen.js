@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, LogBox } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
@@ -11,48 +11,10 @@ import AppTextInput from '../components/AppTextInput'
 import defaultStyles from "../config/styles";
 import PullDownBar from "../components/PullDownBar";
 
-
-// const initialDestinations = [
-//   {
-//     id: 1,
-//     title: "Destination 1 his is sample text to see what and how far the lines go",
-//     description: "This Destination is amazing this is sample text to see what and how far the lines go",
-//     image: require('../assets/seed-destination-image.jpg'),
-//   },
-//   {
-//     id: 2,
-//     title: "Destination 2",
-//     description: "This Destination is ass",
-//     // image: require('../assets/seed-destination-image.jpg'),
-//   },
-//   {
-//     id: 3,
-//     title: "Destination 3",
-//     description: "This Destination is ok",
-//     // image: require('../assets/seed-destination-image.jpg'),
-//   },
-//   {
-//     id: 4,
-//     title: "Destination 4",
-//     description: "This Destination is the best",
-//     image: require('../assets/seed-destination-image.jpg'),
-//   },
-// ];
-
 function DestinationListScreen({ navigation }) {
+  LogBox.ignoreLogs(['VirtualizedLists'])
   const [user, setUser] = useContext(UserContext)
   const [destinations, setDestinations] = useContext(DestinationContext);
-  
-  // useEffect(() => {
-  //   setDestinations(destinations)
-  //   // console.log(user.user.destinations);
-  // },[])
-
-  // const loadDestinations = async () => {
-  //   await fetch(`http://localhost:3000/api/v1/users/${user.id}`)
-  //   .then(resp => resp.json())
-  //   .then(fetchedUser => setDestinations(fetchedUser.destinations))
-  // }  
 
   const handleDelete = (destination) => {
     fetch(`http://localhost:3000/api/v1/destinations/${destination.id}`, {
