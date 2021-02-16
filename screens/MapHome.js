@@ -33,7 +33,7 @@ function MapHome(props) {
     })
   }
   return (
-  
+    
       <MapView
         style={styles.map}
         showsUserLocation={true}

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { KeyboardAvoidingView, LogBox, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import { KeyboardAvoidingView, LogBox, ScrollView, StyleSheet, Switch, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../components/Screen";
@@ -84,9 +84,19 @@ function DestinationNewScreen({navigation}) {
         <Text style={styles.header}>Where to Next?</Text>
 
           <GooglePlacesAutocomplete
-            styles={
-              styles.google
-            }
+            styles={{
+              textInput: {
+                backgroundColor: defaultStyles.colors.light,
+                borderRadius: 15,
+                flexDirection: "row",
+                width: "100%",
+                padding: 15,
+                marginVertical: 10,
+                marginBottom: 10,
+                fontSize: 18,
+                height: 60
+              }
+            }}
             placeholder="GOOGLE SEARCH"
             minLength={2} 
             autoFocus={false}
@@ -127,23 +137,24 @@ function DestinationNewScreen({navigation}) {
         <AppForm
           initialValues={{ 
             user_id: user.user.id,
-            address: address, 
-            name: name, 
-            // category: null, 
-            // visited: visited,
-            // date_visited: null,
-            // cost: null,
-            // attendees: null,
+            address: null, 
+            name: null, 
+            category: null, 
+            visited: visited,
+            date_visited: null,
+            cost: null,
+            attendees: null,
             latitude: latitude,
             longitude: longitude,
-            // image: null,
+            image: null,
             }}
           onSubmit={(formData, {resetForm}) => {
             handleSubmit(formData)
-            resetForm({})
+            resetForm({});
             }
           }
           validationSchema={validationSchema}
+          onReset
         >
           
         
@@ -240,7 +251,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   google:{
-    backgroundColor: defaultStyles.colors.light,
+    backgroundColor: defaultStyles.colors.dark,
     borderRadius: 25,
     flexDirection: "row",
     width: "100%",

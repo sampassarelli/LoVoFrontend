@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 350,
   },
   subTitle: {
     color: colors.dark,

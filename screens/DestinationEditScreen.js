@@ -14,6 +14,7 @@ import routes from '../navigation/routes'
 import Screen from '../components/Screen'
 import SubmitButton from '../components/forms/SubmitButton'
 import UserContext from '../components/contexts/UserContext';
+import ImageInput from '../components/ImageInput'
 
 function DestinationEditScreen({route, navigation}) {
   const destination = route.params
@@ -156,6 +157,7 @@ function DestinationEditScreen({route, navigation}) {
                 value={attendees}
                 onChange={(e) => setAttendees(e.target.value)}
               />
+              <ImageInput name="image" style={styles.image}/>
               </View>
               :
               null

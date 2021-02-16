@@ -26,40 +26,45 @@ function DestinationListScreen({ navigation }) {
     })
   };
   
-  return (
-    <Screen style={styles.screen}>
-      <ScrollView>
+  
 
-        <AppTextInput
-          style={styles.search}
-          autoCorrect={false}
-          icon="magnify"
-          placeholder="SEARCH DESTINATIONS"
-        />
-
-        <Text>{!destinations ? "Add Your First Destination" : null }</Text>
-
-        <FlatList
-          data={destinations}
-          keyExtractor={(destination) => destination.id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              name={item.name}
-              // address={item.address}
-              image={item.image}
-              visited={item.visited}
-              onPress={() => navigation.navigate("DestinationShow", item)}
-              renderRightActions={() => (
-                <CardItemDeleteAction onPress={() => handleDelete(item)} />
-              )}
-              
-            />
-          )}
-        />
-      </ScrollView>
-    </Screen>
+    return (
+      <Screen style={styles.screen}>
+        
+        <ScrollView>
    
-  );
+          <AppTextInput
+            style={styles.search}
+            autoCorrect={false}
+            icon="magnify"
+            placeholder="SEARCH DESTINATIONS"
+          />
+  
+          <Text>{!destinations ? "Add Your First Destination" : null }</Text>
+  
+          <FlatList
+            data={destinations}
+            keyExtractor={(destination) => destination.id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                name={item.name}
+                // address={item.address}
+                image={item.image}
+                visited={item.visited}
+                onPress={() => navigation.navigate("DestinationShow", item)}
+                renderRightActions={() => (
+                  <CardItemDeleteAction onPress={() => handleDelete(item)} />
+                )}
+                
+              />
+            )}
+          />
+        </ScrollView>
+      </Screen>
+     
+    );
+  
+
 }
 
 const styles = StyleSheet.create({

@@ -51,7 +51,7 @@ function LoginScreen(props) {
   return (
     <Screen style={styles.container}>
       
-      <Image style={styles.logo} source={require("../assets/signUpLogo.png")} />
+      <Image style={styles.logo} source={require("../assets/LoginLovoLogo.png")} />
       <ErrorMessage />
       <AppForm
         initialValues={{ email: "sam@gmail.com", password: "123" }}
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   logo: {
-    width: 120,
-    height: 80,
+    width: 100,
+    height: 134,
     alignSelf: "center",
     marginTop: 50,
     marginBottom: 20,

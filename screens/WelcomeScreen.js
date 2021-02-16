@@ -13,7 +13,7 @@ function WelcomeScreen({ navigation }) {
       source={require("../assets/welcome-background.png")}
     >
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/signUpLogo.png")}/>
+        <Image style={styles.logo} source={require("../assets/LovoLogo2.png")}/>
         <Text style={styles.tagline}>Where To Next?</Text>
       </View>
       <View style={styles.buttonsContainer}>
@@ -42,17 +42,18 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 223,
+    height: 275,
+    opacity: .8,
   },
   logoContainer: {
     position: "absolute",
-    top: 70,
+    top: 150,
     alignItems: "center",
   },
   tagline: {
     fontSize: 25,
-    fontWeight: "800",
+    fontWeight: "900",
     paddingVertical: 20,
     color: colors.primary,
   },
