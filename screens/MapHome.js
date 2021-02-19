@@ -21,7 +21,7 @@ function MapHome(props) {
         coordinate={{latitude: destination.latitude, longitude: destination.longitude}}
         title={destination.name}
         description={ destination.visited ? "Visited" : "Not Visited"}
-        pinColor={ destination.visited ? "turquoise" : "red"}
+        pinColor={ destination.visited ? "aqua" : "red"}
       >
         {/* {destination.visited 
         ? 
@@ -41,8 +41,8 @@ function MapHome(props) {
         initialRegion={{
           longitude: -87.629799,
           latitude: 41.878113,
-          longitudeDelta: 0.2,
-          latitudeDelta: 0.5
+          longitudeDelta: 0.5,
+          latitudeDelta: 0.7
         }}
       >
         {mapMarkers()}
